@@ -1,0 +1,748 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    .search-filter {
+      max-width: 960px;
+      margin: 0 auto 30px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box .icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+      font-size: 1.1rem;
+    }
+
+    .search-box input {
+      padding: 12px 18px 12px 44px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      font-size: 1rem;
+      min-width: 240px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .search-box input:focus {
+      box-shadow: 0 0 0 3px rgba(59, 89, 255, 0.3);
+    }
+
+    .search-filter select {
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      font-size: 1rem;
+      min-width: 240px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .search-filter select:focus {
+      box-shadow: 0 0 0 3px rgba(59, 89, 255, 0.3);
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .partner-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-left: 6px solid #2c3a99;
+      padding: 24px 20px;
+      gap: 36px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .partner-card:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .partner-card .logo-img {
+      width: 260px;
+      height: 260px;
+      object-fit: contain;
+    }
+
+    .partner-content {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .partner-content strong {
+      font-size: 1.6rem;
+      color: #111;
+      text-align: center;
+    }
+
+    .benefits {
+      background: #e6ecff;
+      color: #2c3a99;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 14px 20px;
+      border-radius: 12px;
+      line-height: 1.8;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-self: stretch;
+      text-align: left;
+    }
+
+    .btn-info {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #3b59ff, #1a2670);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.4s ease, box-shadow 0.3s ease, transform 0.15s ease;
+      user-select: none;
+      min-width: 160px;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(26, 38, 112, 0.4);
+      margin-top: 30px;
+      align-self: center;
+    }
+
+    .btn-info:hover {
+      background: linear-gradient(135deg, #1a2670, #3344cc);
+      box-shadow: 0 6px 18px rgba(26, 38, 112, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .btn-info:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 8px rgba(26, 38, 112, 0.5);
+    }
+
+    .arrow-icon {
+      display: inline-flex;
+      transition: transform 0.3s ease;
+    }
+
+    .arrow-icon.rotate {
+      transform: rotate(180deg);
+    }
+
+    .extra-info {
+      margin-top: 10px;
+      color: #555;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      display: none;
+      text-align: left;
+      background: #f1f3ff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      align-self: stretch;
+    }
+
+    .extra-info.show {
+      display: block;
+    }
+
+    .extra-info strong {
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .partner-card {
+        padding: 20px 16px;
+      }
+
+      .partner-card .logo-img {
+        width: 180px;
+        height: 180px;
+      }
+
+      .benefits {
+        font-size: 1rem;
+        padding: 12px 16px;
+      }
+
+      .btn-info {
+        margin-top: 24px;
+      }
+    }
+</style>
+<header><img src="https://i.postimg.cc/02X2vyPD/banner.jpg" alt="Programa Desconto Servidor - Quem cuida da cidade merece benefícios exclusivos!" style="width: 100%; height: auto;" /></header>
+<p></p>
+<h1>PARCEIROS DESCONTAÍ</h1>
+<p style="text-align: center; max-width: 700px; margin: 0 auto 30px auto; color: #444; font-size: 1.05rem;">Aqui você encontra uma lista de empresas parceiras com descontos exclusivos para você. Utilize a busca ou filtre por categoria para encontrar as melhores ofertas!</p>
+<div class="search-filter">
+<div class="search-box"><span class="icon"> <!-- Ícone de lupa moderno --> <svg xmlns="http://www.w3.org/2000/svg" height="18" viewbox="0 0 24 24" width="18" fill="#777"> <path d="M11 2a9 9 0 106.32 15.32l4.69 4.69a1 1 0 001.41-1.41l-4.69-4.69A9 9 0 0011 2zm0 2a7 7 0 110 14 7 7 0 010-14z"></path> </svg> </span> <input type="text" id="searchInput" placeholder="Pesquisar parceiro..." oninput="filterCards()" /></div>
+<select id="categoryFilter" onchange="filterCards()">
+<option value="">Todas os Parceiros</option>
+<option value="Academia">Academia</option>
+<option value="Educação">Educação</option>
+<option value="Estética">Estética</option>
+<option value="Farmácia">Farmácia</option>
+<option value="Saúde">Saúde</option>
+<option value="Restaurantes">Restaurantes</option>
+<option value="Automotivos">Serviços Automotivos</option>
+<option value="Outros">Outros</option>
+</select></div>
+<div class="container" id="partnersContainer"><!-- TNCN ACADEMIA --> <!-- TNCN ACADEMIA -->
+<div class="partner-card" data-name="TNCN ACADEMIA" data-category="Academia"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>TNCN ACADEMIA</strong>
+<div class="benefits">✔️ Até 30% nas mensalidades.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova V, Tv. WE-31, N° 332 <br /><strong>Telefone:</strong> (91) 99140-5489</div>
+</div>
+</div>
+<!-- MAIS TOP FARMÁCIA -->
+<div class="partner-card" data-name="MAIS TOP FARMÁCIA" data-category="Farmácia"><img src="blob:https://ananindeua.w3com.com.br/0cb7b8c7-02dd-43af-a2b8-a60ffe5d8048" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>MAIS TOP FARMÁCIA</strong>
+<div class="benefits">✔️ 10% de desconto em genérico de uso contínuo.</div>
+<div class="benefits">✔️ 10% de desconto em suplementos e vitaminas.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Mário Covas, Nº 18 <br /><strong>Telefone:</strong> (91) 98500-2901</div>
+</div>
+</div>
+<!-- DROGANORTE -->
+<div class="partner-card" data-name="DROGANORTE" data-category="Farmácia"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos26.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>DROGANORTE</strong>
+<div class="benefits">✔️ Até 90% de desconto em medicamentos genéricos e similares.</div>
+<div class="benefits">✔️ 10% de desconto em itens de Higiene, Beleza e Perfumaria.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Sem mais informações no momento.</strong></div>
+</div>
+</div>
+<!-- CASTILLA IDIOMAS -->
+<div class="partner-card" data-name="CASTILLA IDIOMAS" data-category="Educação"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos2.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CASTILLA IDIOMAS</strong>
+<div class="benefits">✔️ 60% de desconto nas mensalidades.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-20 <br /><strong>Telefone:</strong> (91) 98712-4111</div>
+</div>
+</div>
+<!-- ASBEP -->
+<div class="partner-card" data-name="ASBEP" data-category="Outros"><img src="https://i.postimg.cc/DZtMpLGF/Captura-de-tela-2025-06-08-142840.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>ASBEP</strong>
+<div class="benefits">✔️ Valor fixo de R$90,00 (sem adesão).</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Rodovia BR-316, KM 8 s/n</div>
+</div>
+</div>
+<!-- VELLON -->
+<div class="partner-card" data-name="VELLON" data-category="Outros"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos19.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>VELLON</strong>
+<div class="benefits">✔️ Valor fixo de R$99,00 (instalação grátis).</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 92000-9466</div>
+</div>
+</div>
+<!-- UNIASSELVI -->
+<div class="partner-card" data-name="UNIASSELVI" data-category="Educação"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos9.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>UNIASSELVI</strong>
+<div class="benefits">✔️ 5% de desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Sem mais informações no momento.</strong></div>
+</div>
+</div>
+<!-- MONOBLOCO -->
+<div class="partner-card" data-name="MONOBLOCO" data-category="Automotivos"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos5.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>MONOBLOCO</strong>
+<div class="benefits">✔️ De 15% a 30% de desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Mário Covas, Nº 463A<br /><strong>Telefone:</strong> (91) 99378-1818</div>
+</div>
+</div>
+<!-- SÃCLINICA -->
+<div class="partner-card" data-name="SÃCLINICA" data-category="Saúde"><img src="https://i.postimg.cc/13Rqqmsp/Design-sem-nome-15.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>SÃCLINICA</strong>
+<div class="benefits">✔️ Até 30% de desconto em exames laboratoriais.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 99962-1253</div>
+</div>
+</div>
+<!-- FAST ESCOVA -->
+<div class="partner-card" data-name="FAST ESCOVA" data-category="Estética"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos8.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>FAST ESCOVA</strong>
+<div class="benefits">✔️ 10% de desconto em procedimentos de cabelo.</div>
+<div class="benefits">✔️ Fast Unha (Pé e Mão) por R$59,99.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Claudio Sanders, Nº 580<br /><strong>Telefone:</strong> (91) 99186-5042</div>
+</div>
+</div>
+<!-- CARMEN ACADEMIA -->
+<div class="partner-card" data-name="CARMEN ACADEMIA" data-category="Academia"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos15.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CARMEN ACADEMIA</strong>
+<div class="benefits">✔️ 10% de desconto nas mensalidades.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-45, Nº 221<br /><strong>Telefone:</strong> (91) 93353-0447</div>
+</div>
+</div>
+<!-- ÔCHALÉ -->
+<div class="partner-card" data-name="ÔCHALÉ" data-category="Restaurante"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos17.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>ÔCHALÉ</strong>
+<div class="benefits">✔️ 10% de desconto de Segunda até Quinta-feira.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-56, Nº 962<br /><strong>Telefone:</strong> (91) 98235-7866</div>
+</div>
+</div>
+<!-- VK EDUCAÇÃO -->
+<div class="partner-card" data-name="VK EDUCAÇÃO" data-category="Educação"><img src="https://i.postimg.cc/wvxZZL0s/Captura-de-tela-2025-06-08-143807.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>VK EDUCAÇÃO</strong>
+<div class="benefits">✔️ 20% desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98049-0692 | 98063-7064</div>
+</div>
+</div>
+<!-- CRECHE BEBÊ SOL -->
+<div class="partner-card" data-name="CRECHE BEBÊ SOL" data-category="Outros"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos22.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CRECHE BEBÊ SOL</strong>
+<div class="benefits">✔️ 20% de desconto nas mensalidades.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-17, N° 258<br /><strong>Telefone:</strong> (91) 98262-6933</div>
+</div>
+</div>
+<!-- ÓTICAS VALENTINA -->
+<div class="partner-card" data-name="ÓTICAS VALENTINA" data-category="Outros"><img src="https://i.postimg.cc/Vkgs5nSV/Captura-de-tela-2025-06-12-101140-removebg-preview.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>ÓTICAS VALENTINA</strong>
+<div class="benefits">✔️ 20% de desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Rodovia Mário Covas, Nº3465<br /><strong>Telefone:</strong> (91) 98140-5548</div>
+</div>
+</div>
+<!-- MICROLINS -->
+<div class="partner-card" data-name="MICROLINS" data-category="Educação"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos14.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>MICROLINS</strong>
+<div class="benefits">✔️ 50% de desconto nas mensalidades.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Rua Providência, N° 21 <br /><strong>Telefone:</strong> (91) 98351-0900</div>
+</div>
+</div>
+<!-- ORTOSONHO-->
+<div class="partner-card" data-name="ORTOSONHO" data-category="Outros"><img src="https://i.postimg.cc/05zK136c/Captura-de-tela-2025-06-08-144112.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>ORTOSONHO</strong>
+<div class="benefits">✔️ 10% de desconto em todos os produtos da loja + brindes.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-90, N° 1271 <br /><strong>Telefone:</strong> (91) 98809-5009</div>
+</div>
+</div>
+<!-- CT PAIVA TEAM -->
+<div class="partner-card" data-name="CT PAIVA TEAM" data-category="Educação"><img src="https://i.postimg.cc/y84ZPP8n/Captura-de-tela-2025-06-08-140236.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CT PAIVA TEAM</strong>
+<div class="benefits">✔️ 15% de desconto nas mensalidades.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Cláudio Sanders, N° 921<br /><strong>Telefone:</strong> (91) 99261-0448</div>
+</div>
+</div>
+<!-- VIRGINIA BORGES ODONTOLOGIA -->
+<div class="partner-card" data-name="VIRGINIA BORGES ODONTOLOGIA" data-category="Saúde"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos10.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>VIRGINIA BORGES ODONTOLOGIA</strong>
+<div class="benefits">✔️ 30% de desconto em todos os procedimentos.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Curuçambá Oeste, Nº 37 <br /><strong>Telefone:</strong> (91) 99368-0101</div>
+</div>
+</div>
+<!-- CLÍNICA DRª. LORENA CARVALHO -->
+<div class="partner-card" data-name="CLÍNICA DRª. LORENA CARVALHO" data-category="Saúde"><img src="https://i.postimg.cc/RCGcHYyt/1000030417-removebg-preview.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CLÍNICA DRª. LORENA CARVALHO </strong>
+<div class="benefits">✔️ 15% de desconto em procedimentos.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova VI, Tv. WE-75 ,Nº 912 <br /><strong>Telefone:</strong> (91) 98701-6933</div>
+</div>
+</div>
+<!-- HENRICK MENEZES PERSONAL -->
+<div class="partner-card" data-name="HENRICK MENEZES PERSONAL" data-category="Saúde"><img src="https://i.postimg.cc/5yfCJ9DG/Captura-de-tela-2025-06-08-141236.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>HENRICK MENEZES PERSONAL</strong>
+<div class="benefits">✔️ 15% de desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98036-4556</div>
+</div>
+</div>
+<!--FASTCAR -->
+<div class="partner-card" data-name="FASTCAR" data-category="Automotivos"><img src="https://i.postimg.cc/RFYP64FF/Captura-de-tela-2025-06-08-141422.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>FASTCAR</strong>
+<div class="benefits">✔️ 20% de desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Mário Covas, Nº 8238<br /><strong>Telefone:</strong> (91) 99322-5070</div>
+</div>
+</div>
+<!-- PAIDÉGUA TURISMO -->
+<div class="partner-card" data-name="PAIDÉGUA TURISMO" data-category="Outros"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos12.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>PAIDÉGUA TURISMO</strong>
+<div class="benefits">✔️ 10% de desconto viagens regionais.</div>
+<div class="benefits">✔️ 15% de desconto viagens nacionais.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98727-4264</div>
+</div>
+</div>
+<!-- AUTOESCOLA MODESTO -->
+<div class="partner-card" data-name="AUTOESCOLA MODESTO" data-category="Automotivos"><img src="https://i.postimg.cc/SNMh4L7B/Captura-de-tela-2025-06-08-141723.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>AUTOESCOLA MODESTO</strong>
+<div class="benefits">✔️ 10% de desconto em serviços pagos à vista.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova VI, SN 23. N°651<br /><strong>Telefone:</strong> (91) 98347-5846</div>
+</div>
+</div>
+<!-- HIGICAR ESTÉTICA AUTOMOTIVA -->
+<div class="partner-card" data-name="HIGICAR ESTÉTICA AUTOMOTIVA" data-category="Automoção"><img src="https://i.imgur.com/oj8wAzd.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>HIGICAR ESTÉTICA AUTOMOTIVA</strong>
+<div class="benefits">✔️ 15% de desconto no polimento técnico.</div>
+<div class="benefits">✔️ 15% de desconto na lavagem detalhada.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-72, Nº 311 <br /><strong>Telefone:</strong> (91) 98165-2274</div>
+</div>
+</div>
+<!-- LUA PETSHOP -->
+<div class="partner-card" data-name="LUA PETSHOP
+" data-category="Saúde"><img src="https://i.postimg.cc/y8CkC89T/Captura-de-tela-2025-06-08-144623.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>LUA PETSHOP </strong>
+<div class="benefits">✔️ 15% de desconto no Banho e Tosa.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-31, Nº4<br /><strong>Telefone:</strong> (91) 98254-9881</div>
+</div>
+</div>
+<!-- DORA COMIDAS TÍPICAS -->
+<div class="partner-card" data-name="DORA COMIDAS TÍPICAS
+" data-category="Restaurantes"><img src="https://i.postimg.cc/pTHwP3C4/Captura-de-tela-2025-06-08-144742.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>DORA COMIDAS TÍPICAS </strong>
+<div class="benefits">✔️ 20% de desconto em lanches e refeições.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Praça da Bíblia, S/N <br /><strong>Telefone:</strong> (91) 98892-8359</div>
+</div>
+</div>
+<!-- RESTÔ ANANI BEER -->
+<div class="partner-card" data-name="RESTÔ ANANI BEER" data-category="Restaurantes"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos20.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>RESTÔ ANANI BEER</strong>
+<div class="benefits">✔️ 10% de desconto no valor final.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Parque Cultural Vila Maguary<br /><strong>Telefone:</strong> (91) 98401-0538</div>
+</div>
+</div>
+<!-- INKASA WINE -->
+<div class="partner-card" data-name="INKASA WINE
+" data-category="Restaurantes"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos6.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>INKASA WINE</strong>
+<div class="benefits">✔️ 10% de desconto todos os dias.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Rua Providência, S/N<br /><strong>Telefone:</strong> (91) 98083-9925</div>
+</div>
+</div>
+<!-- BODY TEEN ACADEMIA -->
+<div class="partner-card" data-name="BODY TEEN ACADEMIA" data-category="Restaurantes"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos25.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>BODY TEEN ACADEMIA</strong>
+<div class="benefits">✔️ Descontos variados.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98254-9881</div>
+</div>
+</div>
+<!-- MINDS -->
+<div class="partner-card" data-name="MINDS" data-category="Educação"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos4.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>MINDS</strong>
+<div class="benefits">✔️ 40% a 50% de desconto nas mensalidades.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98608-1373</div>
+</div>
+</div>
+<!-- DRA. MICHELLE PINHEIRO -->
+<div class="partner-card" data-name="DRA. MICHELLE PINHEIRO" data-category="Saúde"><img src="https://i.postimg.cc/zB40JhqB/Captura-de-tela-2025-06-08-144845.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>DRA. MICHELLE PINHEIRO</strong>
+<div class="benefits">✔️ 15% de desconto em todos os procedimentos.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-72, Nº801-Altos<br /><strong>Telefone:</strong> (91) 98838-2159</div>
+</div>
+</div>
+<div class="partner-card" data-name="BANZAI SUSHI E RESTAURANTE" data-category="Restaurantes"><img src="https://i.postimg.cc/QMX81fRB/1000030419-removebg-preview.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>BANZAI SUSHI E RESTAURANTE</strong>
+<div class="benefits">✔️ 10% de desconto de segunda até quinta-feira.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-13b, Nº22<br /><strong>Telefone:</strong> (91) 98254-9881</div>
+</div>
+</div>
+<!-- CHURRASCARIA SERINGAL -->
+<div class="partner-card" data-name="CHURRASCARIA SERINGAL" data-category="Restaurantes"><img src="https://i.postimg.cc/R0ZBtkKt/Captura-de-tela-2025-06-08-144942.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CHURRASCARIA SERINGAL</strong>
+<div class="benefits">✔️ 10% de desconto de segunda à sexta-feira.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-34, S/N</div>
+</div>
+</div>
+<!-- CLÍNICA LITERACY VETOR -->
+<div class="partner-card" data-name="CLÍNICA LITERACY VETOR" data-category="Saúde"><img src="https://i.postimg.cc/43WhbRMR/Captura-de-tela-2025-06-08-145029.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CLÍNICA LITERACY VETOR</strong>
+<div class="benefits">✔️ 20% de desconto nas terapias em geral.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Estrada da Providência, esquina com WE-03<br /><strong>Telefone:</strong> (91) 99352-9801</div>
+</div>
+</div>
+<!-- VICKY IMPRESS -->
+<div class="partner-card" data-name="VICKY IMPRESS" data-category="Outros"><img src="https://i.postimg.cc/7Z1yRggq/Captura-de-tela-2025-06-08-145430.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>VICKY IMPRESS</strong>
+<div class="benefits">✔️ 15% de desconto em todos os trabalhos fornecidos.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 99867-6438</div>
+</div>
+</div>
+<!-- AUTO STYLE LAVAGEM E ESTÉTICA -->
+<div class="partner-card" data-name="AUTO STYLE LAVAGEM E ESTÉTICA" data-category="Automoção"><img src="https://ananindeua.w3com.com.br/midias/anexos/2592_logos21.jpg" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>AUTO STYLE LAVAGEM E ESTÉTICA</strong>
+<div class="benefits">✔️ 15% de desconto em todos os serviços.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova VI Arterial 5b, N°30</div>
+</div>
+</div>
+<!-- CSN COWORKING-->
+<div class="partner-card" data-name="CSN COWORKING" data-category="Outros"><img src="https://i.postimg.cc/Y9B34Wvy/Captura-de-tela-2025-06-08-145743.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>CSN COWORKING</strong>
+<div class="benefits">✔️ 10% de desconto em escritórios virtuais.</div>
+<div class="benefits">✔️ 10% de desconto em reserva de horas.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova 8, Tv. WE-34, N°7<br /><strong>Telefone:</strong> (91) 98242-6598</div>
+</div>
+</div>
+<!-- TIRAMISÙ -->
+<div class="partner-card" data-name="TIRAMISÙ" data-category="Restaurantes"><img src="https://i.postimg.cc/3RDxqk97/Captura-de-tela-2025-06-08-145913.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>TIRAMISÙ</strong>
+<div class="benefits">✔️ 10% de desconto em todos os produtos.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova V, Tv. WE-31, N° 71<br /><strong>Telefone:</strong> (91) 98164-3642</div>
+</div>
+</div>
+<!-- POWER MAIS ENERGIA SOLAR -->
+<div class="partner-card" data-name="POWER MAIS ENERGIA SOLAR" data-category="Outros"><img src="https://i.postimg.cc/6qrCGW7V/Captura-de-tela-2025-06-08-150014.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>POWER MAIS ENERGIA SOLAR</strong>
+<div class="benefits">✔️ 10% de desconto sobre o orçamento.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98190-3890 | (91) 98952-6347</div>
+</div>
+</div>
+<!-- SOUL DEPIL -->
+<div class="partner-card" data-name="SOUL DEPIL" data-category="Estética"><img src="https://i.postimg.cc/jqnTYWNn/Captura-de-tela-2025-06-08-150110.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>SOUL DEPIL</strong>
+<div class="benefits">✔️ 10% de desconto na depilação a cera.</div>
+<div class="benefits">✔️ 15% de desconto em serviços de estética.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Loja 1:</strong> Subsolo do Formosa Cidade Nova<br /><strong>Loja 2:</strong> Subsolo do Líder Cidade Nova</div>
+</div>
+</div>
+<!-- SOUL DEPIL CLUB HAIR -->
+<div class="partner-card" data-name="SOUL DEPIL CLUB HAIR" data-category="Estética"><img src="https://i.postimg.cc/JnvG79PN/Captura-de-tela-2025-06-08-150202.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>SOUL DEPIL CLUB HAIR</strong>
+<div class="benefits">✔️ Manicure e Pedicure por R$49,99.</div>
+<div class="benefits">✔️ 10% de desconto em Cabelo, Maquiagem e Embelezamento de olhar.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova IV, Tv. WE-46, N°431, Loja G</div>
+</div>
+</div>
+<!-- NOSSO POSTO ICUÍ -->
+<div class="partner-card" data-name="NOSSO POSTO ICUÍ" data-category="Outros"><img src="https://i.postimg.cc/tRsBrW6w/Captura-de-tela-2025-06-08-150303.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>NOSSO POSTO ICUÍ</strong>
+<div class="benefits">✔️ R$0,10 de desconto na gasolina comum e diesel.</div>
+<div class="benefits">✔️ R$0,20 de desconto na gasolina aditivada.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> AV. Estrada do Icuí-Guajará, N°1</div>
+</div>
+</div>
+<!-- COLÉGIO INTELECTUAL -->
+<div class="partner-card" data-name="COLÉGIO INTELECTUAL" data-category="Educação"><img src="https://i.postimg.cc/5yP1NvxZ/Captura-de-tela-2025-06-08-150403.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>COLÉGIO INTELECTUAL</strong>
+<div class="benefits">✔️ 40% de desconto na mensalidade.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Cj. Cidade Nova IV, Tv. WE-26, N°2<br /><strong>Telefone:</strong> 3263-6303</div>
+</div>
+</div>
+<!-- VITTAJOB -->
+<div class="partner-card" data-name="VITTAJOB" data-category="Outros"><img src="https://i.postimg.cc/ydcyHXT8/Captura-de-tela-2025-06-08-150501.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>VITTAJOB</strong>
+<div class="benefits">✔️ 15% de desconto em todos os segmentos + combos exclusivos.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> AV. Gov. Hélio Gueiros, N°89, pavimento interno<br /><strong>Telefone:</strong> (91) 98422-0550</div>
+</div>
+</div>
+<!-- FOXSEG RASTREAMENTO 24H -->
+<div class="partner-card" data-name="FOXSEG RASTREAMENTO 24H
+" data-category="Automoção"><img src="https://i.postimg.cc/dQXwX2xy/Captura-de-tela-2025-06-08-150552.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>FOXSEG RASTREAMENTO 24H </strong>
+<div class="benefits">✔️ 10% de desconto no rastreamento veicular.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Psg. Girassol, N°15, sala 2<br /><strong>Telefone:</strong> (91) 98388-3116</div>
+</div>
+</div>
+<!-- SERRALHERIA ARTMETAL -->
+<div class="partner-card" data-name="SERRALHERIA ARTMETAL" data-category="Outros"><img src="https://i.postimg.cc/TYCSFfwH/Captura-de-tela-2025-06-08-150651.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>SERRALHERIA ARTMETAL</strong>
+<div class="benefits">✔️ 20% de desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Independência, N°1157<br /><strong>Telefone:</strong> (91) 98066-1895</div>
+</div>
+</div>
+<!-- RAIO SOLAR -->
+<div class="partner-card" data-name="RAIO SOLAR" data-category="Outros"><img src="https://i.postimg.cc/xCGYbhRD/Captura-de-tela-2025-06-08-150737.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>RAIO SOLAR</strong>
+<div class="benefits">✔️ 15% de desconto na energia solar.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98388-3116</div>
+</div>
+</div>
+<!-- THIAGO PASSEIOS E TURISMO -->
+<div class="partner-card" data-name="THIAGO PASSEIOS E TURISMO" data-category="Outros"><img src="https://i.postimg.cc/CKTbhnrP/Captura-de-tela-2025-06-08-150944.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>THIAGO PASSEIOS E TURISMO</strong>
+<div class="benefits">✔️ 10% de desconto.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Telefone:</strong> (91) 98191-7333</div>
+</div>
+</div>
+<!-- O REI DA FARINHA -->
+<div class="partner-card" data-name="O REI DA FARINHA" data-category="Outros"><img src="https://i.postimg.cc/7P2XSzjV/Captura-de-tela-2025-06-08-151107.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>O REI DA FARINHA</strong>
+<div class="benefits">✔️ 10% de desconto quinta e sexta-feira.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Feira da Cidade Nova IV</div>
+</div>
+</div>
+<!-- COLÉGIO LA SALLE -->
+<div class="partner-card" data-name="COLÉGIO LA SALLE" data-category="Educação"><img src="https://i.postimg.cc/CL42fDf2/Captura-de-tela-2025-06-08-151207.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>COLÉGIO LA SALLE</strong>
+<div class="benefits">✔️ 10% de desconto a partir da 2° mensalidade.</div>
+<div class="benefits">✔️ 15% de desconto em pagamento antecipado.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Gov. Hélio Gueiros, N°1856<br /><strong>Telefone:</strong> (91) 99324-1557</div>
+</div>
+</div>
+<!-- UNIVERSIDADE LA SALLE -->
+<div class="partner-card" data-name="UNIVERSIDADE LA SALLE" data-category="Educação"><img src="https://i.postimg.cc/3xXbHG31/Captura-de-tela-2025-06-08-151508.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>UNIVERSIDADE LA SALLE</strong>
+<div class="benefits">✔️ Até 40% de desconto na Graduação.</div>
+<div class="benefits">✔️ Até 50% de Desconto na Pós-graduação.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Av. Gov. Hélio Gueiros, N°1856<br /><strong>Telefone:</strong> (91) 99324-1557</div>
+</div>
+</div>
+<!-- AHÔ BURGER -->
+<div class="partner-card" data-name="AHÔ BURGER" data-category="Restaurantes"><img src="https://i.postimg.cc/0y92vpp2/Captura-de-tela-2025-06-08-151638.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>AHÔ BURGER</strong>
+<div class="benefits">✔️ 10% de desconto de Terça até Quinta-feira.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Tv. WE-35, N°8 (Complexo do 8)<br /><strong>Telefone:</strong> (91) 98519-4209</div>
+</div>
+</div>
+<!-- AMAZON HOSPITAL VETERINÁRIO -->
+<div class="partner-card" data-name="AMAZON HOSPITAL VETERINÁRIO" data-category="Saúde"><img src="https://i.postimg.cc/LX2rYT8n/Captura-de-tela-2025-06-08-151758.png" alt="Descrição da imagem" class="logo-img" />
+<div class="partner-content"><strong>AMAZON HOSPITAL VETERINÁRIO</strong>
+<div class="benefits">✔️ 30% de desconto em consultas eletivas e de urgência.</div>
+<div class="benefits">✔️ 10% de desconto em procedimentos.</div>
+<div class="benefits">✔️ 8% de desconto em internamento.</div>
+<div class="benefits">✔️ 8% de desconto em cirurgias.</div>
+<div class="benefits">✔️ 5% de desconto em exames laboratoriais.</div>
+<button class="btn-info" onclick="toggleInfo(this)"> Mais informações <span class="arrow-icon"> <svg width="16" height="16" viewbox="0 0 24 24" fill="currentColor"><path d="M12 8l6 6H6z"></path></svg> </span> </button>
+<div class="extra-info"><strong>Endereço:</strong> Rua 2 de Junho, N°11, Centro<br /><strong>Telefone:</strong> (91) 98490-9517</div>
+</div>
+</div>
+<script>
+function toggleInfo(button) {
+  const extraInfo = button.nextElementSibling;
+  extraInfo.classList.toggle('show');
+  const arrow = button.querySelector('.arrow-icon');
+  arrow.classList.toggle('rotate');
+}
+
+function filterCards() {
+  const searchInput = document.getElementById('searchInput').value.toLowerCase();
+  const categoryFilter = document.getElementById('categoryFilter').value;
+  const cards = document.querySelectorAll('.partner-card');
+
+  cards.forEach(card => {
+    const name = card.getAttribute('data-name').toLowerCase();
+    const category = card.getAttribute('data-category');
+    const matchesSearch = name.includes(searchInput);
+    const matchesCategory = categoryFilter === "" || category === categoryFilter;
+
+    if (matchesSearch && matchesCategory) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+</script>
+<script>
+  function toggleInfo(button) {
+    const card = button.closest('.partner-card');
+    const info = card.querySelector('.extra-info');
+    const arrow = button.querySelector('.arrow-icon');
+
+    if (info.classList.contains('show')) {
+      info.classList.remove('show');
+      arrow.classList.remove('rotate');
+    } else {
+      info.classList.add('show');
+      arrow.classList.add('rotate');
+    }
+  }
+
+  function filterCards() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const category = document.getElementById('categoryFilter').value;
+    const cards = document.querySelectorAll('.partner-card');
+
+    cards.forEach(card => {
+      const name = card.getAttribute('data-name').toLowerCase();
+      const cat = card.getAttribute('data-category');
+
+      const matchesSearch = name.includes(input);
+      const matchesCategory = !category || cat === category;
+
+      if (matchesSearch && matchesCategory) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+</div>
